@@ -94,7 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          si.timerService.scheduleTimeTable();
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

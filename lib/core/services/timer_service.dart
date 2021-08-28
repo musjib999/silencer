@@ -43,12 +43,20 @@ class TimerService {
       si.databaseService.getTimeTable().then((value) async {
         for (var item in value) {
           String currentDay = si.timerService.getCurrentDay();
+          String startTime = item['time']['start'];
+          String stopTime = item['time']['start'];
           if (currentDay == item['day']) {
-            if (item['time']['start'] == currentTime) {
-              await Volume.setVol(0, showVolumeUI: ShowVolumeUI.HIDE);
-              print('Its lecture time');
+            int currentTimeHour = int.parse(currentTime.split(':')[0]);
+            int startTimeHour = int.parse(startTime.split(':')[0]);
+            int stopTimeHour = int.parse(stopTime.split(':')[0]);
+
+            if (startTime == currentTime && currentTimeHour >= startTimeHour ||
+                currentTimeHour <= stopTimeHour) {
+              print('Time is within the schedule hour');
+              // await Volume.setVol(0, showVolumeUI: ShowVolumeUI.HIDE);
+              // print('Its lecture time');
             } else if (item['time']['stop'] == currentTime) {
-              await Volume.setVol(7, showVolumeUI: ShowVolumeUI.HIDE);
+              // await Volume.setVol(7, showVolumeUI: ShowVolumeUI.HIDE);
               print('Time for lecture has finished');
             }
           }
